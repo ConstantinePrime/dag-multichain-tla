@@ -1,5 +1,6 @@
+inputs: ad420fe7a25f993f5c614b5af5f4760d2017e259ca812e093658c640787543dd 2f85ea638672932846b59a18a9b4465c18af119929cb57b02bbac3fe95ea5d3c 936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88
 TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
-Running breadth-first search Model-Checking with fp 6 and seed 3873211441090939134 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 60238] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 93 and seed -69663870937134450 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 88829] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/DagStructure.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/st_layer_amd.tmp/Integers.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/st_layer_amd.tmp/FiniteSets.tla
@@ -12,10 +13,10 @@ Semantic processing of module Sequences
 Semantic processing of module FiniteSets
 Semantic processing of module TLC
 Semantic processing of module DagStructure
-Starting... (2026-10-09 15:20:44)
+Starting... (2026-10-09 16:17:35)
 Computing initial states...
 <<"st_layer_amd", "violations", 0>>
-Finished computing initial states: 1 distinct state generated at 2026-10-09 15:20:44.
+Finished computing initial states: 1 distinct state generated at 2026-10-09 16:17:36.
 Model checking completed. No error has been found.
   Estimates of the probability that TLC did not check all reachable states
   because two distinct states had the same fingerprint:
@@ -23,4 +24,4 @@ Model checking completed. No error has been found.
 2 states generated, 1 distinct states found, 0 states left on queue.
 The depth of the complete state graph search is 1.
 The average outdegree of the complete state graph is 0 (minimum is 0, the maximum 0 and the 95th percentile is 0).
-Finished in 00s at (2026-10-09 15:20:44)
+Finished in 00s at (2026-10-09 16:17:36)

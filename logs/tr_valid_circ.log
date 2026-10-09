@@ -1,5 +1,6 @@
+inputs: ba77372cf50f348dd0cd583280b9cefe6e0d7e16563adae32d2e327eb886d520 7a457b05edbf2a85acd206da1d376870fa56e6c2f4c96b325a7c93b3c3f051a1 936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88
 TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
-Running breadth-first search Model-Checking with fp 39 and seed -3572460917401950712 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 61268] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 120 and seed -7424613270699813922 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 90100] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/DagTransfer.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_valid_circ.tmp/Integers.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_valid_circ.tmp/FiniteSets.tla
@@ -12,9 +13,9 @@ Semantic processing of module Sequences
 Semantic processing of module FiniteSets
 Semantic processing of module TLC
 Semantic processing of module DagTransfer
-Starting... (2026-10-09 15:22:58)
+Starting... (2026-10-09 16:19:50)
 Computing initial states...
-Finished computing initial states: 1 distinct state generated at 2026-10-09 15:22:58.
+Finished computing initial states: 1 distinct state generated at 2026-10-09 16:19:51.
 Error: Invariant CirculationContained is violated.
 Error: The behavior up to this point is:
 State 1: <Initial predicate>
@@ -35,7 +36,7 @@ State 1: <Initial predicate>
 /\ forgedAgg = <<{}, {}, {}, {}, {}>>
 /\ commits = <<{}, {}, {}, {}, {}>>
 
-State 2: <Next line 317, col 8 to line 317, col 65 of module DagTransfer>
+State 2: <Next line 343, col 8 to line 343, col 65 of module DagTransfer>
 /\ origin = <<0, 0, 0>>
 /\ txs = 0
 /\ endAt = <<0, 0, 0>>
@@ -50,10 +51,10 @@ State 2: <Next line 317, col 8 to line 317, col 65 of module DagTransfer>
 /\ target = <<0, 0, 3>>
 /\ fic = <<0, 0, 1>>
 /\ path = <<<<3>>, <<5>>, <<4>>>>
-/\ forgedAgg = <<{[u |-> 3, f |-> 4, t |-> 3, len |-> 1]}, {}, {}, {}, {}>>
+/\ forgedAgg = <<{[f |-> 4, t |-> 3, u |-> 3, len |-> 1]}, {}, {}, {}, {}>>
 /\ commits = <<{}, {}, {}, {}, {}>>
 
-State 3: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
+State 3: <Credit line 243, col 5 to line 257, col 83 of module DagTransfer>
 /\ origin = <<0, 0, 3>>
 /\ txs = 0
 /\ endAt = <<0, 0, 3>>
@@ -68,10 +69,10 @@ State 3: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
 /\ target = <<0, 0, 0>>
 /\ fic = <<0, 0, 1>>
 /\ path = <<<<3>>, <<5>>, <<4, 3>>>>
-/\ forgedAgg = <<{[u |-> 3, f |-> 4, t |-> 3, len |-> 1]}, {}, {}, {}, {}>>
+/\ forgedAgg = <<{[f |-> 4, t |-> 3, u |-> 3, len |-> 1]}, {}, {}, {}, {}>>
 /\ commits = <<{}, {}, {}, {}, {}>>
 
-State 4: <Start line 184, col 5 to line 193, col 81 of module DagTransfer>
+State 4: <Start line 204, col 5 to line 213, col 81 of module DagTransfer>
 /\ origin = <<0, 0, 3>>
 /\ txs = 1
 /\ endAt = <<0, 0, 0>>
@@ -86,10 +87,10 @@ State 4: <Start line 184, col 5 to line 193, col 81 of module DagTransfer>
 /\ target = <<0, 0, 5>>
 /\ fic = <<0, 0, 1>>
 /\ path = <<<<3>>, <<5>>, <<4, 3>>>>
-/\ forgedAgg = <<{[u |-> 3, f |-> 4, t |-> 3, len |-> 1]}, {}, {}, {}, {}>>
+/\ forgedAgg = <<{[f |-> 4, t |-> 3, u |-> 3, len |-> 1]}, {}, {}, {}, {}>>
 /\ commits = <<{}, {}, {}, {}, {}>>
 
-State 5: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
+State 5: <SendHop line 216, col 5 to line 222, col 32 of module DagTransfer>
 /\ origin = <<0, 0, 3>>
 /\ txs = 1
 /\ endAt = <<0, 0, 0>>
@@ -104,10 +105,10 @@ State 5: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
 /\ target = <<0, 0, 5>>
 /\ fic = <<0, 0, 1>>
 /\ path = <<<<3>>, <<5>>, <<4, 3>>>>
-/\ forgedAgg = <<{[u |-> 3, f |-> 4, t |-> 3, len |-> 1]}, {}, {}, {}, {}>>
-/\ commits = <<{}, {}, {[u |-> 3, f |-> 3, t |-> 2, len |-> 2]}, {}, {}>>
+/\ forgedAgg = <<{[f |-> 4, t |-> 3, u |-> 3, len |-> 1]}, {}, {}, {}, {}>>
+/\ commits = <<{}, {}, {[f |-> 3, t |-> 2, u |-> 3, len |-> 2]}, {}, {}>>
 
-State 6: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
+State 6: <Credit line 243, col 5 to line 257, col 83 of module DagTransfer>
 /\ origin = <<0, 0, 3>>
 /\ txs = 1
 /\ endAt = <<0, 0, 0>>
@@ -122,10 +123,10 @@ State 6: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
 /\ target = <<0, 0, 5>>
 /\ fic = <<0, 0, 1>>
 /\ path = <<<<3>>, <<5>>, <<4, 3, 2>>>>
-/\ forgedAgg = <<{[u |-> 3, f |-> 4, t |-> 3, len |-> 1]}, {}, {}, {}, {}>>
-/\ commits = <<{}, {}, {[u |-> 3, f |-> 3, t |-> 2, len |-> 2]}, {}, {}>>
+/\ forgedAgg = <<{[f |-> 4, t |-> 3, u |-> 3, len |-> 1]}, {}, {}, {}, {}>>
+/\ commits = <<{}, {}, {[f |-> 3, t |-> 2, u |-> 3, len |-> 2]}, {}, {}>>
 
 491 states generated, 226 distinct states found, 88 states left on queue.
 The depth of the complete state graph search is 6.
 The average outdegree of the complete state graph is 2 (minimum is 0, the maximum 8 and the 95th percentile is 7).
-Finished in 00s at (2026-10-09 15:22:58)
+Finished in 00s at (2026-10-09 16:19:51)

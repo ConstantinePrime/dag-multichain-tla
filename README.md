@@ -19,35 +19,51 @@ the resolved architecture and checks them together.
 
 ## Summary
 
-- **34 TLC runs, all with their expected verdict** (17 hold; 17 are
+- **45 TLC runs, all with their expected verdict** (21 hold; 24 are
   violated as intended: mutations, published readings found wanting, and
-  witnesses). `make quick` reproduces them in about 3 minutes.
-- **What holds as published.** The structural consequences of [DAG]
-  §2.1: the backbone is a forest, roles follow from degrees, and cross edges
-  keep the graph acyclic. Structured names are unique and resolvable. All
-  of these hold on every system with up to five chains (four for
-  acyclicity). Transfers conserve
-  supply and stay backed, and [Tree]'s two safeguards, locking upward
-  transfers and child validators that only observe, are shown necessary.
+  witnesses). `make quick` runs 43 of them in about 3 minutes; `make all`
+  adds two larger-bound rows (about 2 more minutes).
+- **What holds as published.**
+  - The structural consequences of [DAG] §2.1: the backbone is a forest,
+    roles follow from degrees, and cross edges keep the graph acyclic.
+  - Structured names are unique and resolvable.
+
+  All of these hold on every topologically numbered system with up to
+  five chains (four for acyclicity). Transfers conserve supply and stay
+  backed, which the model guarantees by construction.
+  [Tree]'s two safeguards are encoded with the attacks they prevent:
+  locking upward transfers, and child validators that only observe.
 - **What does not.**
-  - One **Defect**: layering (5) is not always achievable (118 of 508
-    systems with up to four chains).
+  - One **Defect**: layering (5) is not always achievable (118 of the 508
+    numbered systems with up to four chains).
   - Three **Gaps**:
     - the rules do not ensure that chains can reach each other;
-    - a refused multi-hop transfer is stranded on an intermediate chain;
+    - a refused multi-hop transfer ends on an intermediate chain;
     - BR = 3 holds where unbacked value originates, not where it
-      circulates.
+      circulates, although §3.7 admits that faults on coordination chains
+      may propagate.
   - Two characterisations: cross edges add security only if every parent
-    confirms, and a shared validator pool makes the whole pool the blast
-    radius.
+    confirms, and a shared validator pool makes the members' governance
+    structures the blast radius (all of `gu5`).
 - **Resolved.** [`docs/resolutions.md`](docs/resolutions.md) gives each
-  finding an amendment: (5′) longest-path layering, (6) connectivity, a
-  hop-by-hop refund, and sibling transfers confirmed by every parent of a
-  chain with two independent parents. With all of them on, transfers
-  conserve supply, settle at their origin or target and always end, and no
-  honest chain holds unbacked value that does not name the compromised
-  chain. This holds with no compromise and with any one chain compromised
-  (`tr_amended`, `tr_amended_path`).
+  finding an amendment:
+  - (5′) longest-path layering;
+  - (6) connectivity;
+  - a hop-by-hop refund;
+  - proof of validity only between siblings that share two parents with
+    independent validators, all of which confirm; otherwise transfers go
+    through the parent.
+
+  With all of them on:
+  - transfers conserve supply and settle at their origin or target;
+  - every transfer ends, unless a compromised chain holds the unit or is
+    asked to credit it;
+  - no honest chain holds unbacked value whose provenance avoids the
+    compromised chain.
+
+  This holds on all four scenarios, with no compromise and with any one
+  chain compromised (`tr_amended`, `tr_amended_tree`, `tr_amended_gu`,
+  `tr_amended_path`), and at larger bounds for two of them.
 
 ## Claims
 
@@ -59,14 +75,14 @@ the resolved architecture and checks them together.
 | Layering (5) is always achievable | [DAG] §2.1 | `st_layer_pub` / `st_layer_amd`, `st_layer_relaxed` | **Defect**; exact condition holds; longest-path layering (5′) always exists |
 | Structured names are unique and resolvable | [DAG] §2.3 | `rt_names` | Holds |
 | Distant chains can communicate | [DAG] §2.3, Conclusions | `rt_reach_pub` / `rt_reach_amd` | **Gap**; holds with a connectivity condition |
-| Transfers conserve supply and stay backed | [Tree] eqs. 3–8 | `tr_full_tree3`, `tr_full_dag5` | Holds |
-| Upward transfers must lock, not use proof of validity | [Tree] | `tr_up_pov` / `tr_up_lock` | Holds; the mechanism is necessary |
-| Child validators only observe the parent | [Tree] | `tr_obs_off` / `tr_obs_on` | Holds; the mechanism is necessary |
-| Spillover stays in a governance group (BR = 3) | [DAG] §3.7 | `tr_valid_group`, `tr_up_lock`, `tr_obs_on`, `tr_gu_spread` / `tr_valid_circ`, `tr_multi_all`, `tr_multi_gu` / `tr_amended`, `tr_amended_path` | **Gap**: holds where unbacked value originates, not where it circulates; contained when every parent of a chain with two independent parents confirms |
+| Transfers conserve supply and stay backed | [Tree] eqs. 3–8 | `tr_full_tree3`, `tr_full_dag5` | Holds (by construction of the model) |
+| Upward transfers must lock, not use proof of validity | [Tree] | `tr_up_pov` / `tr_up_lock` | Consistent: the modelled attack needs proof of validity upward |
+| Child validators only observe the parent | [Tree] | `tr_obs_off` / `tr_obs_on` | Consistent: the modelled spread needs child validators voting on the parent |
+| Spillover stays in a governance group (BR = 3) | [DAG] §3.1, §3.7 | `tr_valid_group` / `tr_valid_circ`, `tr_multi_all`, `tr_multi_gu` / `tr_amended`, `tr_amended_tree`, `tr_amended_gu`, `tr_amended_path` | **Gap**: holds where unbacked value originates, not where it circulates; contained when siblings use proof of validity only with two independent shared parents, all confirming |
 | Cross edges add validation | [DAG] Conclusions, §3.7 SS = 3 | `tr_valid_backbone` / `tr_valid_all` | Characterisation: only if every parent validates |
 | Multi-hop transfers settle | [Tree] | `tr_unwind_pub` / `tr_unwind_amd` | **Gap**; holds with hop-by-hop refund |
-| A shared validator pool | [DAG] §2.2 | `tr_gu_spread`, `wt_gu_member` | Characterisation: the blast radius is the whole G_u |
-| The resolved transfer rules, together | [`docs/resolutions.md`](docs/resolutions.md) | `tr_amended`, `tr_amended_path` | Holds with no compromise or any one chain compromised |
+| A shared validator pool | [DAG] §2.2 | `tr_gu_spread`, `wt_gu_member` | Characterisation: the blast radius is the governance structures of every member (all of `gu5`; without the pool, r1's {r1, a, b}) |
+| The resolved transfer rules, together | [`docs/resolutions.md`](docs/resolutions.md) | `tr_amended`, `tr_amended_tree`, `tr_amended_gu`, `tr_amended_path`, `tr_amended_big`, `tr_amended_path_big` | Holds with no compromise or any one chain compromised |
 
 Not checked: the scoring model of [DAG] §3 (an assessment method over cited
 figures); time, fees and throughput.
@@ -79,7 +95,7 @@ figures); time, fees and throughput.
 | [`docs/results.md`](docs/results.md) | every row's verdict and numbers, and how to read them |
 | [`docs/finding-layering.md`](docs/finding-layering.md) | layering (5) is not always achievable |
 | [`docs/finding-connectivity.md`](docs/finding-connectivity.md) | the structural rules do not guarantee reachability |
-| [`docs/finding-multihop-unwind.md`](docs/finding-multihop-unwind.md) | a refused multi-hop transfer is stranded |
+| [`docs/finding-multihop-unwind.md`](docs/finding-multihop-unwind.md) | a refused multi-hop transfer ends on an intermediate chain |
 | [`docs/finding-containment.md`](docs/finding-containment.md) | unbacked value leaves the governance group |
 | [`docs/resolutions.md`](docs/resolutions.md) | every finding's resolution: the amended rule, alternatives, cost, checks; the resolved architecture |
 
@@ -101,7 +117,8 @@ Requires Java 11 or later, GNU make and Python 3. The Makefile downloads
 TLC (`tla2tools.jar`, release v1.7.4, TLC 2.19) and checks its SHA-256.
 
 ```bash
-make quick                 # every row, about 3 min, then the verdict check
+make quick                 # every row but the two slow ones, about 3 min, then the verdict check
+make all                   # every row, about 5 min
 make st_layer_pub          # one row
 ./run.sh tr_up_pov         # one row outside make
 python3 tools/check.py     # verdicts of the existing logs

@@ -14,30 +14,38 @@ Each resolution has a status:
   [`model.md`](model.md);
 - **Argued** — the proof is given here and is not model-checked.
 
+System counts are of topologically numbered (labelled) systems, as
+[`model.md`](model.md) explains.
+
 ## Summary
 
 | | Finding | Verdict | Resolution | Rows | Status |
 |---|---|---|---|---|---|
 | D1 | Layering (5) is not always achievable | Defect | (5′): longest-path levels; (5) only under an exact condition | `st_layer_pub`, `st_layer_amd`, `st_layer_relaxed`, `ws_longbackbone` | Checked |
 | D2 | Nothing ensures that chains can reach each other | Gap | (6) connectivity; the root directory publishes the links between trees; an admission rule | `rt_reach_pub`, `rt_reach_amd`, `rt_names` | Checked; admission rule argued |
-| D3 | A refused multi-hop transfer is stranded | Gap | refund hop by hop, also on timeout | `tr_unwind_pub`, `tr_unwind_amd`, `wt_refund`, `tr_amended_path` | Checked |
-| D4 | Unbacked value leaves the governance group (BR = 3) | Gap | sibling transfers confirmed by every parent of a chain with two independent parents | `tr_valid_circ`, `tr_multi_all`, `tr_multi_gu`, `tr_valid_all`, `tr_amended`, `tr_amended_path` | Checked |
-| D5 | A shared validator pool widens the blast radius | Characterisation | BR stated per pool; a pool counts as one parent in D4 | `tr_gu_spread`, `wt_gu_member`, `tr_multi_gu` | Checked |
+| D3 | A refused multi-hop transfer ends on an intermediate chain | Gap | refund hop by hop, also on timeout | `tr_unwind_pub`, `tr_unwind_amd`, `wt_refund`, `tr_amended_path` | Checked |
+| D4 | Unbacked value leaves the governance group (BR = 3) | Gap | proof of validity only between siblings with two independent shared parents, all of which confirm; otherwise through the parent | `tr_valid_circ`, `tr_multi_all`, `tr_multi_gu`, `tr_valid_all`, `tr_amended`, `tr_amended_tree`, `tr_amended_gu`, `tr_amended_path` | Checked |
+| D5 | A shared validator pool widens the blast radius | Characterisation | BR stated per pool; a pool counts as one parent in D4 | `tr_gu_spread`, `wt_gu_member`, `tr_multi_gu`, `tr_amended_gu` | Checked |
 
-Two [Tree] mechanisms are confirmed as necessary and kept unchanged:
-upward transfers lock rather than use proof of validity (`tr_up_pov` /
-`tr_up_lock`), and child validators only observe their parent
-(`tr_obs_off` / `tr_obs_on`). `tr_amended` and `tr_amended_path` check the
-resolved transfer rules together, with every resolution on, both with no
-compromise and with any one chain compromised.
+Two [Tree] mechanisms are kept unchanged: upward transfers lock rather
+than use proof of validity (`tr_up_pov` / `tr_up_lock`), and child
+validators only observe their parent (`tr_obs_off` / `tr_obs_on`). The
+model encodes [Tree]'s attacks on them, so these pairs show the model is
+consistent with [Tree]'s arguments rather than giving independent evidence
+([`model.md`](model.md)). `tr_amended`, `tr_amended_tree`, `tr_amended_gu`
+and `tr_amended_path` check the resolved transfer rules together on all
+four scenarios, with every resolution on, both with no compromise and with
+any one chain compromised; `tr_amended_big` and `tr_amended_path_big`
+repeat the first and last at larger bounds.
 
 ## D1. Layering
 
 **Finding** ([`finding-layering.md`](finding-layering.md)). 118 of the 508
 systems with up to four chains satisfy (1)–(4) but admit no level function
-with (5); the smallest has three chains. In particular, a cross edge
-between two siblings can never be layered, although sibling communication
-is the dominant mode in [DAG] §3.7.
+with (5); the smallest has three chains. Inside one backbone tree, (5)
+admits a cross edge only if it goes strictly deeper, so a cross edge
+between two chains of equal depth, such as two siblings, is never
+layered, although (1)–(4) allow it.
 
 **Resolution.** Condition (5) is replaced by
 
@@ -71,8 +79,8 @@ level.
 **Alternatives.**
 
 - *Keep (5) as a requirement.* The condition above would then become part
-  of validity, and it forbids cross edges between siblings, the case §3.7
-  relies on.
+  of validity, and it forbids every cross edge between two chains of
+  equal depth in one tree, which (1)–(4) allow.
 - *Drop (5) without a replacement.* This leaves the layered diagrams of
   [DAG] undefined.
 
@@ -154,8 +162,9 @@ for (`tr_unwind_pub`, six states).
 > c_{i+1} is refused, or is not credited before its timeout. c_i releases
 > the unit it locked for c_{i+1}, burns its wrapper and proves the burn to
 > c_{i−1}, which releases its escrow, and so on back to c₀. The transfer
-> then ends at its origin. A chain may refuse to mint, but never to
-> release escrow it holds against a proved burn.
+> then ends at its origin. A chain may refuse a forward mint, but never a
+> hop of a refund, and never the release of escrow it holds against a
+> proved burn.
 
 This is the refund of IBC token transfers [ICS-20], where a transfer that
 times out or is acknowledged with an error is refunded to its sender,
@@ -177,9 +186,14 @@ applied at every hop of the route.
 adds 2i + 1 records: the release of the refused hop, then a burn and a
 release for each completed hop.
 
-**Liveness.** In the model, refusal does not depend on whether
-confirmations have arrived, so it also stands for a timeout. `Terminates`
-therefore covers a hop whose credit never becomes possible.
+**Liveness.** In the model, refusing a forward mint does not depend on
+whether confirmations have arrived, so it also stands for a timeout:
+`Terminates` covers a forward hop whose credit never becomes possible.
+The release of escrow on the way back cannot be refused, so it relies on
+its confirmation arriving (see D4, Cost). Only honest chains are bound to
+act: `Terminates` says that every transfer ends unless a compromised chain
+holds the unit or is the chain asked to credit it, since such a chain may
+keep what it is sent.
 
 **Checked.**
 
@@ -189,7 +203,8 @@ therefore covers a hop whose credit never becomes possible.
   conserved.
 - `wt_refund`: a refund does reach the origin (witness).
 - `tr_amended_path`: the same, with D4, on a three-hop route with no
-  compromise or any one chain compromised.
+  compromise or any one chain compromised (`Terminates` with the
+  exception above).
 
 ## D4. Containment of damage (BR = 3)
 
@@ -203,27 +218,34 @@ therefore covers a hop whose credit never becomes possible.
 - The unbacked value still originates inside the group (`tr_valid_group`
   holds). So BR = 3, "spillover limited to a governance group", holds for
   where damage starts but not for where it goes.
+- §3.7 qualifies the score: faults "could propagate if happen on local
+  coordination networks". The clause allows propagation but does not bound
+  it; the score does, and propagation beyond the group is what score 2
+  ("limited to hub cluster") or 1 describe.
 - Requiring every parent's confirmation is not enough when a chain's only
-  parent is compromised (`tr_multi_all`), or when its two parents share a
-  validator pool (`tr_multi_gu`).
+  parent is compromised (`tr_multi_all`), or when two siblings' two shared
+  parents share a validator pool (`tr_multi_gu`).
 
 **Resolution.**
 
-> A chain v credits a sibling transfer by proof of validity only if
-> (a) v has at least two parents in G — its backbone parent and its cross
-> parents — whose validator sets are independent (no two of them in one
-> G_u), and (b) the aggregate commitment B_t of every parent of v contains
-> the lock. A chain without two independent parents receives sibling
-> transfers through its backbone parent, as two lock-based hops that the
-> parent validates on its own rules ([Tree] eqs. 3–8).
+> Two siblings x and v use proof of validity only if (a) they share at
+> least two parents in G — backbone or cross — whose validator sets are
+> independent (no two of them in one G_u), and (b) the aggregate
+> commitment B_t of every parent they share contains the lock, or on the
+> way back the burn. Otherwise the transfer goes through the backbone
+> parent, as two lock-based hops that the parent validates on its own rules
+> ([Tree] eqs. 3–8). The sender checks (a) before choosing the route, so
+> it never starts a transfer the receiver may not credit.
 
 **Why it contains the damage.** One compromised chain can invent a lock
 only in aggregates it controls. Under (a) and (b), the aggregate of an
-honest parent lacks the invented lock, so the credit fails. Unbacked value
-can then exist only on the compromised chain's own ledger, or as wrappers
-of its assets, whose provenance names it (`ProvenanceContained`). Such
-units lose their value in every multichain system: [DAG] §3.4 scores
-Cosmos BR = 5 although IBC vouchers of a compromised chain become
+honest shared parent lacks the invented lock, so the credit fails. Every
+unbacked unit an honest chain holds then has a provenance that passes
+through a compromised chain (`ProvenanceContained`): the compromised
+chain's own assets, or unbacked wrappers it passed on. These are
+attributable to it, as an IBC voucher is through its denomination trace,
+and a compromise devalues them in every multichain system: [DAG] §3.4
+scores Cosmos BR = 5 although the vouchers of a compromised chain become
 worthless. The model therefore counts as damage only units whose
 provenance avoids every compromised chain, and D4 removes those
 altogether.
@@ -240,15 +262,19 @@ altogether.
   checked.
 - *A threshold instead of every parent.* k-of-n confirmations with
   k ≥ 2 still stop a single compromised parent, and they tolerate n − k
-  unavailable parents. (b) is the case k = n, which the model checks; the
-  threshold is argued.
+  unavailable or withholding parents. (b) is the case k = n, which the
+  model checks; the threshold is argued.
 
-**Cost.** A sibling credit waits for the slowest parent's commitment
-instead of one, and each extra parent records the lock in its aggregate.
-A chain with one parent pays two lock-based hops for a sibling transfer
-instead of one proof-of-validity transfer. A parent that withholds its
-confirmation stalls the credit. The receiver then refuses after its
-timeout, and D3 refunds the transfer (`Terminates` in `tr_amended`).
+**Cost.** A sibling credit waits for the slowest shared parent's
+commitment instead of one, and each extra parent records the lock in its
+aggregate. Siblings without two independent shared parents pay two
+lock-based hops instead of one proof-of-validity transfer. A compromised
+shared parent can also withhold the honest lock from its aggregate (not
+modelled; argued here). A forward credit then stalls, and the receiver
+refuses it after its timeout, which D3 refunds. But the release of escrow
+on the way back cannot be refused, so a withheld burn stalls it for as
+long as the parent withholds. A threshold of k-of-n shared parents with
+2 ≤ k < n removes this stall, at the price of a third shared parent.
 
 **Effect on the scores of [DAG] §3.7.**
 
@@ -262,20 +288,31 @@ timeout, and D3 refunds the transfer (`Terminates` in `tr_amended`).
 
 - `tr_valid_circ`: backbone parent only — violated.
 - `tr_multi_all`: every parent, but one parent only — violated.
-- `tr_multi_gu`: two parents in one pool — violated.
+- `tr_multi_gu`: two shared parents in one pool (independence not
+  required) — violated.
 - `tr_valid_all`: `dag5`, every parent — holds.
-- `tr_amended` (`dag5`) and `tr_amended_path` (`path4`): every resolution
-  on, with no compromise or any one chain compromised. `Conservation`,
-  `Backed`, `SettlesSafe`, `ProvenanceContained`, `GroupContained`,
-  `CirculationContained` and `Terminates` all hold.
+- `tr_amended` (`dag5`, proof of validity between a and b),
+  `tr_amended_tree` (`tree3`) and `tr_amended_gu` (`gu5`), both through
+  the parent, and `tr_amended_path` (`path4`): every resolution on, with no
+  compromise or any one chain compromised. `Conservation`, `Backed`,
+  `SettlesSafe`, `ProvenanceContained`, `GroupContained`,
+  `CirculationContained` and `Terminates` (with D3's exception for a
+  compromised holder) all hold; `tr_amended_big` and
+  `tr_amended_path_big` repeat two of them at larger bounds.
+- `wt_detour`: a sibling transfer does complete through the parent
+  (witness).
 
 ## D5. Shared validator pools
 
 **Finding.** A United Governance Structure rotates one validator pool over
 its members, so a compromise of the pool reaches every member
-(`wt_gu_member`). The blast radius is the members together with their
-parents and children (`tr_gu_spread`). The pool lowers the probability of
-a 51 % attack ([DAG] §2.2), which TLC cannot measure.
+(`wt_gu_member`). The blast radius becomes the governance structures of
+every member — the members, their parents and their children. In `gu5` a
+compromise of r1 thus reaches all five chains, where without the pool it
+reaches r1's own structure {r1, a, b}. `tr_gu_spread` measures this; it
+cannot fail there, since the blast radius is the whole system, so it is a
+characterisation, not a containment check. The pool lowers the
+probability of a 51 % attack ([DAG] §2.2), which TLC cannot measure.
 
 **Resolution.**
 
@@ -290,9 +327,12 @@ a 51 % attack ([DAG] §2.2), which TLC cannot measure.
 
 **Checked.**
 
-- `tr_gu_spread`: holds.
+- `tr_gu_spread`: the blast radius of a pooled compromise (all of `gu5`).
 - `wt_gu_member`: the compromise does reach the other member (witness).
-- `tr_multi_gu`: two parents in one pool fail D4's condition.
+- `tr_multi_gu`: two shared parents in one pool are not enough without
+  the independence condition.
+- `tr_amended_gu`: with the condition, transfers between a and b go
+  through r1, and the resolved rules hold with any one chain compromised.
 
 ## The resolved architecture
 
@@ -319,8 +359,8 @@ holds the roots, T and the gates, and routes are as in D2.
   validating on its own rules. Upward proof of validity is not allowed.
 - Child validators observe their parent and do not validate it:
   V(c) ∩ R(p(c)) = ∅.
-- Siblings: proof of validity under D4; otherwise through the backbone
-  parent.
+- Siblings: proof of validity only under D4's condition, confirmed by
+  every shared parent; otherwise through the backbone parent.
 - Multi-hop: along the route of D2, refunded by D3 when refused.
 
 **Containment.** Against one compromised chain, or one compromised pool:
@@ -329,7 +369,9 @@ holds the roots, T and the gates, and routes are as in D2.
   compromised chains;
 - unbacked value is created only there;
 - every unbacked unit an honest chain holds names a compromised chain in
-  its provenance.
+  its provenance;
+- every transfer ends, unless a compromised chain holds the unit or is the
+  chain asked to credit it.
 
 ## What the resolutions do not cover
 
@@ -337,8 +379,11 @@ holds the roots, T and the gates, and routes are as in D2.
   - Structure is checked exhaustively up to five chains (four for
     `st_cross`, `st_layer_pub` and `st_layer_amd`).
   - Transfers are checked on four fixed scenarios, with at most two
-    transfers and one forged unit per behaviour.
-  - The adversary is one compromised chain, or one compromised pool.
+    transfers and one forged unit per behaviour (three and two in the two
+    larger-bound rows).
+  - The adversary is one compromised chain, or one compromised pool. It
+    invents locks but not burns, and it does not withhold honest events
+    from its aggregates (D4, Cost).
 - **Time.** Timeouts (D3, D4) are modelled only as the possibility of
   refusal. Their values, finality and fees are outside the model.
 - **Run-time topology.** The admission rule of D2 is argued, not checked.
@@ -359,13 +404,15 @@ A paragraph that introduces the amendments:
 > - the structural rules do not ensure that chains can reach each other,
 >   which a connectivity condition (6) restores;
 > - a multi-hop transfer refused part-way must be refunded hop by hop;
-> - the blast radius BR = 3 holds for damage in circulation only if a
->   sibling transfer is confirmed by every parent of a receiving chain
->   with at least two independent parents.
+> - the blast radius BR = 3 holds for where unbacked value originates,
+>   not for where it circulates; it holds for both if a sibling transfer
+>   by proof of validity requires two shared parents with independent
+>   validators, all of which confirm it.
 >
-> Each amendment is checked in the model, separately and together, with
-> any one chain compromised. Without each of them, the model exhibits a
-> counterexample.
+> The structural amendments are checked exhaustively on all systems with
+> up to five chains; the transfer amendments are checked together, with
+> no compromise and with any one chain compromised. Without each of them,
+> the model exhibits a counterexample.
 
 ## References
 

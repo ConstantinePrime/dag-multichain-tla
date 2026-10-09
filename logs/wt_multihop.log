@@ -1,5 +1,6 @@
+inputs: ba77372cf50f348dd0cd583280b9cefe6e0d7e16563adae32d2e327eb886d520 1fd98e2f1f3a628520f02ac0aaab1dc591705f2aef33de6d0e1ed41b1a64c10a 936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88
 TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
-Running breadth-first search Model-Checking with fp 5 and seed 9074076106434266601 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 61727] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 107 and seed -3290384486834905191 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 91244] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/DagTransfer.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/wt_multihop.tmp/Integers.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/wt_multihop.tmp/FiniteSets.tla
@@ -12,9 +13,9 @@ Semantic processing of module Sequences
 Semantic processing of module FiniteSets
 Semantic processing of module TLC
 Semantic processing of module DagTransfer
-Starting... (2026-10-09 15:23:07)
+Starting... (2026-10-09 16:21:42)
 Computing initial states...
-Finished computing initial states: 1 distinct state generated at 2026-10-09 15:23:08.
+Finished computing initial states: 1 distinct state generated at 2026-10-09 16:21:42.
 Error: Invariant NoMultiHop is violated.
 Error: The behavior up to this point is:
 State 1: <Initial predicate>
@@ -35,7 +36,7 @@ State 1: <Initial predicate>
 /\ forgedAgg = <<{}, {}, {}, {}>>
 /\ commits = <<{}, {}, {}, {}>>
 
-State 2: <Start line 184, col 5 to line 193, col 81 of module DagTransfer>
+State 2: <Start line 204, col 5 to line 213, col 81 of module DagTransfer>
 /\ origin = <<0, 0>>
 /\ txs = 1
 /\ endAt = <<0, 0>>
@@ -53,7 +54,7 @@ State 2: <Start line 184, col 5 to line 193, col 81 of module DagTransfer>
 /\ forgedAgg = <<{}, {}, {}, {}>>
 /\ commits = <<{}, {}, {}, {}>>
 
-State 3: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
+State 3: <SendHop line 216, col 5 to line 222, col 32 of module DagTransfer>
 /\ origin = <<0, 0>>
 /\ txs = 1
 /\ endAt = <<0, 0>>
@@ -69,9 +70,9 @@ State 3: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
 /\ fic = <<0, 0>>
 /\ path = <<<<3>>, <<>>>>
 /\ forgedAgg = <<{}, {}, {}, {}>>
-/\ commits = <<{}, {}, {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]}, {}>>
+/\ commits = <<{}, {}, {[f |-> 3, t |-> 2, u |-> 1, len |-> 1]}, {}>>
 
-State 4: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
+State 4: <Credit line 243, col 5 to line 257, col 83 of module DagTransfer>
 /\ origin = <<0, 0>>
 /\ txs = 1
 /\ endAt = <<0, 0>>
@@ -87,9 +88,9 @@ State 4: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
 /\ fic = <<0, 0>>
 /\ path = <<<<3, 2>>, <<>>>>
 /\ forgedAgg = <<{}, {}, {}, {}>>
-/\ commits = <<{}, {}, {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]}, {}>>
+/\ commits = <<{}, {}, {[f |-> 3, t |-> 2, u |-> 1, len |-> 1]}, {}>>
 
-State 5: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
+State 5: <SendHop line 216, col 5 to line 222, col 32 of module DagTransfer>
 /\ origin = <<0, 0>>
 /\ txs = 1
 /\ endAt = <<0, 0>>
@@ -106,11 +107,11 @@ State 5: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
 /\ path = <<<<3, 2>>, <<>>>>
 /\ forgedAgg = <<{}, {}, {}, {}>>
 /\ commits = << {},
-   {[u |-> 1, f |-> 2, t |-> 1, len |-> 2]},
-   {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]},
+   {[f |-> 2, t |-> 1, u |-> 1, len |-> 2]},
+   {[f |-> 3, t |-> 2, u |-> 1, len |-> 1]},
    {} >>
 
-State 6: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
+State 6: <Credit line 243, col 5 to line 257, col 83 of module DagTransfer>
 /\ origin = <<0, 0>>
 /\ txs = 1
 /\ endAt = <<0, 0>>
@@ -127,11 +128,11 @@ State 6: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
 /\ path = <<<<3, 2, 1>>, <<>>>>
 /\ forgedAgg = <<{}, {}, {}, {}>>
 /\ commits = << {},
-   {[u |-> 1, f |-> 2, t |-> 1, len |-> 2]},
-   {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]},
+   {[f |-> 2, t |-> 1, u |-> 1, len |-> 2]},
+   {[f |-> 3, t |-> 2, u |-> 1, len |-> 1]},
    {} >>
 
-State 7: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
+State 7: <SendHop line 216, col 5 to line 222, col 32 of module DagTransfer>
 /\ origin = <<0, 0>>
 /\ txs = 1
 /\ endAt = <<0, 0>>
@@ -147,12 +148,12 @@ State 7: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
 /\ fic = <<0, 0>>
 /\ path = <<<<3, 2, 1>>, <<>>>>
 /\ forgedAgg = <<{}, {}, {}, {}>>
-/\ commits = << {[u |-> 1, f |-> 1, t |-> 4, len |-> 3]},
-   {[u |-> 1, f |-> 2, t |-> 1, len |-> 2]},
-   {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]},
+/\ commits = << {[f |-> 1, t |-> 4, u |-> 1, len |-> 3]},
+   {[f |-> 2, t |-> 1, u |-> 1, len |-> 2]},
+   {[f |-> 3, t |-> 2, u |-> 1, len |-> 1]},
    {} >>
 
-State 8: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
+State 8: <Credit line 243, col 5 to line 257, col 83 of module DagTransfer>
 /\ origin = <<0, 0>>
 /\ txs = 1
 /\ endAt = <<4, 0>>
@@ -168,12 +169,12 @@ State 8: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
 /\ fic = <<0, 0>>
 /\ path = <<<<3, 2, 1, 4>>, <<>>>>
 /\ forgedAgg = <<{}, {}, {}, {}>>
-/\ commits = << {[u |-> 1, f |-> 1, t |-> 4, len |-> 3]},
-   {[u |-> 1, f |-> 2, t |-> 1, len |-> 2]},
-   {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]},
+/\ commits = << {[f |-> 1, t |-> 4, u |-> 1, len |-> 3]},
+   {[f |-> 2, t |-> 1, u |-> 1, len |-> 2]},
+   {[f |-> 3, t |-> 2, u |-> 1, len |-> 1]},
    {} >>
 
 8 states generated, 8 distinct states found, 0 states left on queue.
 The depth of the complete state graph search is 8.
 The average outdegree of the complete state graph is 1 (minimum is 1, the maximum 1 and the 95th percentile is 1).
-Finished in 00s at (2026-10-09 15:23:08)
+Finished in 00s at (2026-10-09 16:21:42)

@@ -1,4 +1,4 @@
-Error: Invariant GroupContained is violated.
+Error: Invariant ProvenanceContained is violated.
 Error: The behavior up to this point is:
 State 1: <Initial predicate>
 /\ origin = <<0, 0, 0, 0>>
@@ -18,7 +18,7 @@ State 1: <Initial predicate>
 /\ forgedAgg = <<{}, {}, {}>>
 /\ commits = <<{}, {}, {}>>
 
-State 2: <Start line 184, col 5 to line 193, col 81 of module DagTransfer>
+State 2: <Start line 204, col 5 to line 213, col 81 of module DagTransfer>
 /\ origin = <<0, 0, 0, 0>>
 /\ txs = 1
 /\ endAt = <<0, 0, 0, 0>>
@@ -36,7 +36,7 @@ State 2: <Start line 184, col 5 to line 193, col 81 of module DagTransfer>
 /\ forgedAgg = <<{}, {}, {}>>
 /\ commits = <<{}, {}, {}>>
 
-State 3: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
+State 3: <SendHop line 216, col 5 to line 222, col 32 of module DagTransfer>
 /\ origin = <<0, 0, 0, 0>>
 /\ txs = 1
 /\ endAt = <<0, 0, 0, 0>>
@@ -52,9 +52,9 @@ State 3: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
 /\ fic = <<0, 0, 0, 0>>
 /\ path = <<<<1>>, <<1>>, <<2>>, <<>>>>
 /\ forgedAgg = <<{}, {}, {}>>
-/\ commits = <<{[u |-> 1, f |-> 1, t |-> 3, len |-> 1]}, {}, {}>>
+/\ commits = <<{[f |-> 1, t |-> 3, u |-> 1, len |-> 1]}, {}, {}>>
 
-State 4: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
+State 4: <Credit line 243, col 5 to line 257, col 83 of module DagTransfer>
 /\ origin = <<0, 0, 0, 0>>
 /\ txs = 1
 /\ endAt = <<3, 0, 0, 0>>
@@ -70,9 +70,9 @@ State 4: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
 /\ fic = <<0, 0, 0, 0>>
 /\ path = <<<<1, 3>>, <<1>>, <<2>>, <<>>>>
 /\ forgedAgg = <<{}, {}, {}>>
-/\ commits = <<{[u |-> 1, f |-> 1, t |-> 3, len |-> 1]}, {}, {}>>
+/\ commits = <<{[f |-> 1, t |-> 3, u |-> 1, len |-> 1]}, {}, {}>>
 
-State 5: <Next line 317, col 8 to line 317, col 65 of module DagTransfer>
+State 5: <Next line 343, col 8 to line 343, col 65 of module DagTransfer>
 /\ origin = <<0, 0, 0, 3>>
 /\ txs = 1
 /\ endAt = <<3, 0, 0, 0>>
@@ -88,4 +88,4 @@ State 5: <Next line 317, col 8 to line 317, col 65 of module DagTransfer>
 /\ fic = <<0, 0, 0, 1>>
 /\ path = <<<<1>>, <<1>>, <<2>>, <<1, 3>>>>
 /\ forgedAgg = <<{}, {}, {}>>
-/\ commits = <<{[u |-> 1, f |-> 1, t |-> 3, len |-> 1]}, {}, {}>>
+/\ commits = <<{[f |-> 1, t |-> 3, u |-> 1, len |-> 1]}, {}, {}>>

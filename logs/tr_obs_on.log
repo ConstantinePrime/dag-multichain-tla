@@ -1,5 +1,6 @@
+inputs: ba77372cf50f348dd0cd583280b9cefe6e0d7e16563adae32d2e327eb886d520 5320f1b57ed482c9d746a276327bb1d893a045c68d7298b1823fb1863d7984c8 936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88
 TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
-Running breadth-first search Model-Checking with fp 54 and seed -3896512497448036441 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 61140] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 85 and seed -8640629405469105085 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 89963] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/DagTransfer.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_obs_on.tmp/Integers.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_obs_on.tmp/FiniteSets.tla
@@ -12,9 +13,9 @@ Semantic processing of module Sequences
 Semantic processing of module FiniteSets
 Semantic processing of module TLC
 Semantic processing of module DagTransfer
-Starting... (2026-10-09 15:22:56)
+Starting... (2026-10-09 16:19:48)
 Computing initial states...
-Finished computing initial states: 1 distinct state generated at 2026-10-09 15:22:56.
+Finished computing initial states: 1 distinct state generated at 2026-10-09 16:19:48.
 Model checking completed. No error has been found.
   Estimates of the probability that TLC did not check all reachable states
   because two distinct states had the same fingerprint:
@@ -22,4 +23,4 @@ Model checking completed. No error has been found.
 362 states generated, 202 distinct states found, 0 states left on queue.
 The depth of the complete state graph search is 16.
 The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 4 and the 95th percentile is 4).
-Finished in 00s at (2026-10-09 15:22:56)
+Finished in 00s at (2026-10-09 16:19:48)

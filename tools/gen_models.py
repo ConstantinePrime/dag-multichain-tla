@@ -65,9 +65,10 @@ ROWS = [
     ('tr_full_dag5', T, dict(SCENARIO='"dag5"'),
      ['TypeOK', 'Conservation', 'Backed', 'SettlesSafe'], ['Terminates'], HOLDS,
      'Full design, dag5 (two roots, cross parents, transfer between trees), no compromise.'),
-    ('tr_up_pov', T, dict(UP='"pov"', COMPROMISE='{2}'), ['TypeOK', 'GroupContained'], [],
-     viol('GroupContained'),
-     'Upward proof of validity, a compromised: r releases the escrow it holds for b.'),
+    ('tr_up_pov', T, dict(UP='"pov"', COMPROMISE='{2}'), ['TypeOK', 'ProvenanceContained'], [],
+     viol('ProvenanceContained'),
+     'Upward proof of validity, a compromised: r releases the escrow it holds for b,\n'
+     'whose wrapper then names no compromised chain.'),
     ('tr_up_lock', T, dict(COMPROMISE='{2}'),
      ['TypeOK', 'ProvenanceContained', 'GroupContained'], [], HOLDS,
      'Same as tr_up_pov with lock-based upward transfers.'),
@@ -80,15 +81,15 @@ ROWS = [
     ('tr_valid_backbone', T, dict(SCENARIO='"dag5"', COMPROMISE='{1}'),
      ['TypeOK', 'ProvenanceContained'], [], viol('ProvenanceContained'),
      'Siblings verified by the backbone parent only; r1 compromised forges an\n'
-     'aggregate and b mints a wrapper of a lock a never made.'),
+     'aggregate and a mints a wrapper of a lock b never made.'),
     ('tr_valid_group', T, dict(SCENARIO='"dag5"', COMPROMISE='{1}'),
      ['TypeOK', 'GroupContained'], [], HOLDS,
      'Same scenario: unbacked value is created only inside r1\'s governance\n'
      'group (BR = 3).'),
     ('tr_valid_circ', T, dict(SCENARIO='"dag5"', COMPROMISE='{1}'),
      ['TypeOK', 'CirculationContained'], [], viol('CirculationContained'),
-     'Characterisation: the unbacked wrapper minted on b travels on to r2 and c,\n'
-     'outside r1\'s governance group; its provenance (a, b) names no failed chain.'),
+     'BR = 3 as extent of damage: the unbacked wrapper minted on a travels on to r2,\n'
+     'outside r1\'s governance group; its provenance (b, a) names no failed chain.'),
     ('tr_valid_all', T, dict(SCENARIO='"dag5"', VALIDATE='"all_parents"', COMPROMISE='{1}'),
      ['TypeOK', 'ProvenanceContained', 'GroupContained', 'CirculationContained'], [], HOLDS,
      'Siblings verified by every parent (cross edges add validation).'),
@@ -104,22 +105,46 @@ ROWS = [
                            ALLOW_REJECT='TRUE', COMPROMISE='{0, 1, 2, 3, 4, 5}'),
      ['TypeOK', 'Conservation', 'Backed', 'SettlesSafe', 'ProvenanceContained', 'GroupContained',
       'CirculationContained'], ['Terminates'], HOLDS,
-     'Resolved protocol on dag5: sibling transfers confirmed by every parent of a\n'
-     'chain with two parents or more, refund on refusal; no'
-     'compromise or any one chain compromised (c0 = 0 means none).'),
+     'Resolved protocol on dag5: a and b share two independent parents, so they use\n'
+     'proof of validity confirmed by both; refund on refusal; no compromise or any\n'
+     'one chain compromised (c0 = 0 means none).'),
+    ('tr_amended_tree', T, dict(SCENARIO='"tree3"', VALIDATE='"multi_parent"', UNWIND='"amended"',
+                                ALLOW_REJECT='TRUE', COMPROMISE='{0, 1, 2, 3}'),
+     ['TypeOK', 'Conservation', 'Backed', 'SettlesSafe', 'ProvenanceContained', 'GroupContained',
+      'CirculationContained'], ['Terminates'], HOLDS,
+     'Resolved protocol on tree3: the siblings share one parent, so a sibling transfer\n'
+     'goes through r as two lock-based hops. No compromise or any one chain.'),
+    ('tr_amended_gu', T, dict(SCENARIO='"gu5"', VALIDATE='"multi_parent"', UNWIND='"amended"',
+                              ALLOW_REJECT='TRUE', COMPROMISE='{0, 1, 2, 3, 4, 5}'),
+     ['TypeOK', 'Conservation', 'Backed', 'SettlesSafe', 'ProvenanceContained', 'GroupContained',
+      'CirculationContained'], ['Terminates'], HOLDS,
+     'Resolved protocol on gu5: a and b share two parents in one pool, which count as\n'
+     'one, so their transfers go through r1. No compromise or any one chain.'),
     ('tr_amended_path', T, dict(SCENARIO='"path4"', VALIDATE='"multi_parent"',
                                 UNWIND='"amended"', ALLOW_REJECT='TRUE',
                                 COMPROMISE='{0, 1, 2, 3, 4}'),
      ['TypeOK', 'Conservation', 'Backed', 'SettlesSafe', 'ProvenanceContained', 'GroupContained',
       'CirculationContained'], ['Terminates'], HOLDS,
-     'Resolved protocol on path4: refunds along a three-hop route; a and c have one\n'
-     'parent each, so a forged sibling lock is refused. No compromise or any one chain.'),
+     'Resolved protocol on path4: refunds along a three-hop route; siblings a and c\n'
+     'share one parent, so a forged sibling lock is refused. No compromise or any one chain.'),
+    ('tr_amended_big', T, dict(SCENARIO='"dag5"', VALIDATE='"multi_parent"', UNWIND='"amended"',
+                               ALLOW_REJECT='TRUE', COMPROMISE='{0, 1, 2, 3, 4, 5}', MaxTx=3,
+                               MaxForge=2),
+     ['TypeOK', 'Conservation', 'Backed', 'SettlesSafe', 'ProvenanceContained', 'GroupContained',
+      'CirculationContained'], ['Terminates'], HOLDS,
+     'tr_amended at larger bounds: three transfers and two forged units (slow row).'),
+    ('tr_amended_path_big', T, dict(SCENARIO='"path4"', VALIDATE='"multi_parent"',
+                                    UNWIND='"amended"', ALLOW_REJECT='TRUE',
+                                    COMPROMISE='{0, 1, 2, 3, 4}', MaxTx=3, MaxForge=2),
+     ['TypeOK', 'Conservation', 'Backed', 'SettlesSafe', 'ProvenanceContained', 'GroupContained',
+      'CirculationContained'], ['Terminates'], HOLDS,
+     'tr_amended_path at larger bounds: three transfers and two forged units (slow row).'),
     ('tr_multi_all', T, dict(SCENARIO='"path4"', VALIDATE='"all_parents"', UNWIND='"amended"',
                              ALLOW_REJECT='TRUE', COMPROMISE='{0, 1, 2, 3, 4}'),
      ['TypeOK', 'ProvenanceContained'], [], viol('ProvenanceContained'),
      'Same with every parent confirming but no two-parent condition: r, the only parent\n'
      'of a and c, forges a sibling lock and a credits it.'),
-    ('tr_multi_gu', T, dict(SCENARIO='"gu5"', VALIDATE='"multi_parent"', COMPROMISE='{1}'),
+    ('tr_multi_gu', T, dict(SCENARIO='"gu5"', VALIDATE='"two_parents"', COMPROMISE='{1}'),
      ['TypeOK', 'ProvenanceContained'], [], viol('ProvenanceContained'),
      'Two parents sharing one validator pool (G_u = {r1, r2}) count as one: the\n'
      'compromise reaches both and the forged sibling lock is confirmed.'),
@@ -137,10 +162,33 @@ ROWS = [
      ['NoRefund'], [], viol('NoRefund'), 'Witness: a refund reaches the origin.'),
     ('wt_gu_member', T, dict(SCENARIO='"gu5"', COMPROMISE='{1}'), ['NoGuSpread'], [],
      viol('NoGuSpread'), 'Witness: the compromise reaches the other G_u member.'),
+    ('wt_tree3', T, {}, ['NoSiblingDone'], [], viol('NoSiblingDone'),
+     'Witness for tr_full_tree3: a sibling transfer completes.'),
+    ('wt_dag5', T, dict(SCENARIO='"dag5"'), ['NoCrossTree'], [], viol('NoCrossTree'),
+     'Witness for tr_full_dag5: a transfer between the two backbone trees completes.'),
+    ('wt_obs', T, dict(SCENARIO='"path4"', COMPROMISE='{3}'), ['NoForgedOnHonest'], [],
+     viol('NoForgedOnHonest'), 'Witness for tr_obs_on: b\'s forged unit reaches an honest chain.'),
+    ('wt_amended', T, dict(SCENARIO='"dag5"', VALIDATE='"multi_parent"', UNWIND='"amended"',
+                           ALLOW_REJECT='TRUE', COMPROMISE='{0, 1, 2, 3, 4, 5}'),
+     ['NoRefund'], [], viol('NoRefund'),
+     'Witness for tr_amended: a refund reaches the origin under the resolved rules.'),
+    ('wt_detour', T, dict(SCENARIO='"tree3"', VALIDATE='"multi_parent"', UNWIND='"amended"',
+                          ALLOW_REJECT='TRUE', COMPROMISE='{0, 1, 2, 3}'),
+     ['NoSiblingDone'], [], viol('NoSiblingDone'),
+     'Witness for tr_amended_tree: a sibling transfer completes through the parent.'),
+    ('wt_amended_gu', T, dict(SCENARIO='"gu5"', VALIDATE='"multi_parent"', UNWIND='"amended"',
+                              ALLOW_REJECT='TRUE', COMPROMISE='{0, 1, 2, 3, 4, 5}'),
+     ['NoSiblingDone'], [], viol('NoSiblingDone'),
+     'Witness for tr_amended_gu: a transfer between a and b completes through r1.'),
+    ('wt_amended_path', T, dict(SCENARIO='"path4"', VALIDATE='"multi_parent"',
+                                UNWIND='"amended"', ALLOW_REJECT='TRUE',
+                                COMPROMISE='{0, 1, 2, 3, 4}'),
+     ['NoRefund'], [], viol('NoRefund'),
+     'Witness for tr_amended_path: a refund reaches the origin of the three-hop route.'),
 ]
 
-# Rows left out of `make quick` (none so far; long rows go here).
-SLOW = set()
+# Rows left out of `make quick`: the larger-bound rows (`make all` runs them).
+SLOW = {'tr_amended_big', 'tr_amended_path_big'}
 
 
 def cfg_text(module, overrides, invs, props, expected, comment):

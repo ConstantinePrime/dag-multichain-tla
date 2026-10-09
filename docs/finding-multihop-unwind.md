@@ -1,4 +1,4 @@
-# Finding: a refused multi-hop transfer is stranded on an intermediate chain
+# Finding: a refused multi-hop transfer ends on an intermediate chain
 
 Verdict: **Gap** in [Tree] (communication between remote branches), which
 [DAG] inherits. Rows `tr_unwind_pub` (violated) and `tr_unwind_amd` (holds)
@@ -39,10 +39,13 @@ wrapper the sender did not ask for.
 
 On refusal, return the unit hop by hop to the origin: each previous hop
 burns its wrapper and the hop before releases its escrow, as IBC does with
-acknowledgements. `tr_unwind_amd` checks that every transfer then ends at
-its origin or its target (`SettlesSafe`), that every transfer ends
-(`Terminates`, under weak fairness), and `Conservation`; witness
-`wt_refund` shows a refund reaching the origin. `tr_amended_path` checks
-the same with any one chain compromised, together with the containment
-amendment of [`finding-containment.md`](finding-containment.md). Timeouts,
-alternatives and cost: [`resolutions.md`](resolutions.md), D3.
+acknowledgements. The hops of a refund cannot be refused. `tr_unwind_amd`
+checks that every transfer then ends at its origin or its target
+(`SettlesSafe`), that every transfer ends (`Terminates`, under weak
+fairness), and `Conservation`; witness `wt_refund` shows a refund reaching
+the origin. `tr_amended_path` checks the same with any one chain
+compromised, together with the containment amendment of
+[`finding-containment.md`](finding-containment.md); there `Terminates`
+allows one exception, a unit held by, or waiting on, a compromised chain,
+which may keep what it is sent. Timeouts, alternatives and cost:
+[`resolutions.md`](resolutions.md), D3.

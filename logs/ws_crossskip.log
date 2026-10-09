@@ -1,5 +1,6 @@
+inputs: ad420fe7a25f993f5c614b5af5f4760d2017e259ca812e093658c640787543dd 92285bc1528963d9832c0353fc402b3d8947fa5f9a7c1ab2fd1ae3e092a6ff07 936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88
 TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
-Running breadth-first search Model-Checking with fp 115 and seed -6480778536473931034 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 60724] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 108 and seed 5607417951607432032 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 89368] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/DagStructure.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/ws_crossskip.tmp/Integers.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/ws_crossskip.tmp/FiniteSets.tla
@@ -12,7 +13,7 @@ Semantic processing of module Sequences
 Semantic processing of module FiniteSets
 Semantic processing of module TLC
 Semantic processing of module DagStructure
-Starting... (2026-10-09 15:22:03)
+Starting... (2026-10-09 16:18:56)
 Computing initial states...
 <<"ws_crossskip", "violations", 10147>>
 Error: Invariant NoViolation is violated by the initial state:
@@ -21,4 +22,4 @@ ce = [ n |-> 3,
   ex |-> {<<1, 2>>, <<1, 3>>, <<2, 3>>},
   lev |-> <<>> ]
 
-Finished in 36s at (2026-10-09 15:22:39)
+Finished in 35s at (2026-10-09 16:19:31)

@@ -19,7 +19,7 @@ removes that guarantee, and no condition replaces it.
 ## Counterexample
 
 `rt_reach_pub` enumerates every system with up to five chains (23,548
-systems) and looks for two chains with no transfer path, where a path may
+topologically numbered systems) and looks for two chains with no transfer path, where a path may
 use any backbone or cross edge in either direction. It finds 2,627; the
 smallest (`traces/rt_reach_pub.trace.txt`):
 

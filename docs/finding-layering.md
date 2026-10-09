@@ -14,8 +14,8 @@ down one or more levels, Eₓ ⊆ ⋃_{i<j} L_i × L_j.
 
 ## Counterexample
 
-`st_layer_pub` enumerates every system with up to four chains (508 systems)
-and searches, for each, a level function satisfying (1), (4) and (5). It
+`st_layer_pub` enumerates every system with up to four chains (508
+topologically numbered systems; see `docs/model.md`) and searches, for each, a level function satisfying (1), (4) and (5). It
 finds 118 systems without one, 2 of the 24 with three chains and 116 of the
 480 with four. The smallest, recorded in `traces/st_layer_pub.trace.txt`:
 
@@ -30,9 +30,10 @@ forces ℓ(3) = ℓ(1) + 1, but the cross edges force ℓ(1) < ℓ(2) < ℓ(3), 
 root r with backbone children a and b and a cross edge a → b, where (5)
 forces ℓ(a) = ℓ(b) and the cross edge ℓ(a) < ℓ(b).
 
-The second case matters for the article's own design: sibling
-communication is the dominant mode in [DAG] §3.7, and a cross edge between
-siblings is allowed by (1)–(4) but never layerable.
+The second case shows that the restriction is not an artefact of several
+roots: inside one backbone tree, (1)–(4) allow a cross edge between two
+chains of equal depth, and (5) never does. More generally, (5) admits a
+cross edge inside a tree only if it goes strictly deeper.
 
 ## Proposed amendment
 

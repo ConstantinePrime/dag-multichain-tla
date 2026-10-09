@@ -1,0 +1,36 @@
+inputs: ba77372cf50f348dd0cd583280b9cefe6e0d7e16563adae32d2e327eb886d520 7eb2ac887775793019d7f10944836e1698be7cc05a7b59aac070b0ee3d8b41ab 936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88
+TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
+Running breadth-first search Model-Checking with fp 88 and seed -4909511536928878577 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 90967] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/DagTransfer.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_amended_path_big.tmp/Integers.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_amended_path_big.tmp/FiniteSets.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_amended_path_big.tmp/Sequences.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_amended_path_big.tmp/TLC.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_amended_path_big.tmp/Naturals.tla
+Semantic processing of module Naturals
+Semantic processing of module Integers
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module TLC
+Semantic processing of module DagTransfer
+Starting... (2026-10-09 16:21:27)
+Implied-temporal checking--satisfiability problem has 1 branches.
+Computing initial states...
+Computed 2 initial states...
+Computed 4 initial states...
+Finished computing initial states: 5 distinct states generated at 2026-10-09 16:21:27.
+Checking temporal properties for the current state space with 41850 total distinct states at (2026-10-09 16:21:30)
+Finished checking temporal properties in 00s at 2026-10-09 16:21:30
+Progress(16) at 2026-10-09 16:21:30: 106,169 states generated (106,169 s/min), 41,850 distinct states found (41,850 ds/min), 8,492 states left on queue.
+Progress(36) at 2026-10-09 16:21:37: 371,274 states generated, 134,196 distinct states found, 0 states left on queue.
+Checking temporal properties for the complete state space with 134196 total distinct states at (2026-10-09 16:21:37)
+Finished checking temporal properties in 01s at 2026-10-09 16:21:38
+Model checking completed. No error has been found.
+  Estimates of the probability that TLC did not check all reachable states
+  because two distinct states had the same fingerprint:
+  calculated (optimistic):  val = 1.7E-9
+  based on the actual fingerprints:  val = 9.7E-10
+371274 states generated, 134196 distinct states found, 0 states left on queue.
+The depth of the complete state graph search is 36.
+The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 7 and the 95th percentile is 4).
+Finished in 11s at (2026-10-09 16:21:38)

@@ -45,9 +45,12 @@ CONSTANTS
                     \* child's proved state transition to its own state
     OBSERVERS,      \* TRUE: child validators observe the parent, V(c) \cap R(p(c)) = {}
     VALIDATE,       \* "backbone": siblings verified against the backbone
-                    \* parent's aggregate; "all_parents": against every parent's;
-                    \* "multi_parent": against every parent's, and only by a
-                    \* chain with at least two parents (resolution)
+                    \* parent's aggregate; "all_parents": against every parent's
+                    \* of the receiver; "multi_parent" (resolution D4): against
+                    \* every parent the two siblings share, and only if they
+                    \* share two with independent validators (a G_u counts as
+                    \* one), otherwise the transfer goes through the backbone
+                    \* parent; "two_parents": the same without independence
     UNWIND,         \* "published": a refusal unlocks only the refused hop;
                     \* "amended": the unit is returned hop by hop to the origin
     ALLOW_REJECT,   \* an honest chain may refuse a mint
@@ -56,7 +59,7 @@ CONSTANTS
     MaxForge        \* fake units a compromised chain may create
 
 ASSUME /\ UP \in {"lock", "pov"} /\ OBSERVERS \in BOOLEAN
-       /\ VALIDATE \in {"backbone", "all_parents", "multi_parent"}
+       /\ VALIDATE \in {"backbone", "all_parents", "multi_parent", "two_parents"}
        /\ UNWIND \in {"published", "amended"}
        /\ ALLOW_REJECT \in BOOLEAN /\ MaxTx \in Nat /\ MaxForge \in Nat
 
@@ -110,6 +113,23 @@ HopKind(x, y) ==
 
 ASSUME \A k \in DOMAIN Routes : \A i \in 1..(Len(Routes[k]) - 1) :
            HopKind(Routes[k][i], Routes[k][i + 1]) # "none"
+
+\* Resolution D4. Two siblings may use proof of validity only if they share
+\* two parents with independent validators; the members of one United
+\* Governance Structure share a pool and count as one. Otherwise a sibling
+\* hop becomes two lock-based hops through the backbone parent.
+Shared(x, y) == AllParents(x) \cap AllParents(y)
+PovOK(x, y) ==
+    CASE VALIDATE = "multi_parent" ->
+            Cardinality({IF p \in GU THEN 0 ELSE p : p \in Shared(x, y)}) >= 2
+      [] VALIDATE = "two_parents" -> Cardinality(Shared(x, y)) >= 2
+      [] OTHER -> TRUE
+Detour(x, y) == HopKind(x, y) = "sibling" /\ ~PovOK(x, y)
+RECURSIVE Expand(_)
+Expand(q) == IF Len(q) < 2 THEN q
+             ELSE (IF Detour(q[1], q[2]) THEN <<q[1], Parent[q[1]]>> ELSE <<q[1]>>)
+                    \o Expand(Tail(q))
+Route(f, t) == Expand(Routes[<<f, t>>])
 
 (***************************************************************************)
 (* Who a compromise reaches. Without the observer rule a child's           *)
@@ -186,7 +206,7 @@ Start(u, t) ==
     /\ start' = [start EXCEPT ![u] = Cur(u)]
     /\ req' = [req EXCEPT ![u] = t]
     /\ target' = [target EXCEPT ![u] = t]
-    /\ rt' = [rt EXCEPT ![u] = Routes[<<Cur(u), t>>]]
+    /\ rt' = [rt EXCEPT ![u] = Route(Cur(u), t)]
     /\ pos' = [pos EXCEPT ![u] = 1]
     /\ endAt' = [endAt EXCEPT ![u] = 0]
     /\ txs' = txs + 1
@@ -204,18 +224,20 @@ SendHop(u) ==
 \* Aggregate B_t of parent q: what its children committed, plus, if q is
 \* compromised, whatever it invents.
 Agg(q) == UNION {commits[k] : k \in Kids(q)} \cup (IF q \in comp THEN forgedAgg[q] ELSE {})
-Validators(y) == IF VALIDATE = "backbone" THEN {Parent[y]} ELSE AllParents(y)
+Validators(x, y) == CASE VALIDATE = "backbone"    -> {Parent[y]}
+                     [] VALIDATE = "all_parents" -> AllParents(y)
+                     [] OTHER                    -> Shared(x, y)
 
 \* An honest chain releases escrow only if it holds it (its own rules), and
-\* accepts a sibling's lock only if every validating parent's aggregate
-\* contains it -- under "multi_parent" only if it has two parents or more.
-\* A compromised chain accepts anything.
+\* accepts a sibling's lock or burn only if proof of validity is allowed
+\* between the two (PovOK) and every validating parent's aggregate contains
+\* it. A compromised chain accepts anything.
 Accepts(u, x, y) ==
     \/ y \in comp
     \/ /\ IsPop(u, y) => Len(path[u]) - 1 > fic[u]
        /\ HopKind(x, y) = "sibling" =>
-              /\ VALIDATE = "multi_parent" => Cardinality(AllParents(y)) >= 2
-              /\ \A q \in Validators(y) : Event(u, x, y) \in Agg(q)
+              /\ PovOK(x, y)
+              /\ \A q \in Validators(x, y) : Event(u, x, y) \in Agg(q)
 
 Credit(u) ==
     /\ out[u] # 0
@@ -242,7 +264,8 @@ Reject(u) ==
     /\ LET x == Cur(u)
            y == out[u]
        IN  /\ y \notin comp
-           /\ ~IsPop(u, y)                       \* only a mint can be refused
+           /\ ~IsPop(u, y)                       \* only a mint can be refused,
+           /\ target[u] = req[u]                 \* and not on the way back
            /\ out' = [out EXCEPT ![u] = 0]
            /\ IF Len(path[u]) <= fic[u] /\ x \notin comp
               THEN /\ path' = [path EXCEPT ![u] = <<>>]
@@ -275,7 +298,10 @@ ForgeUnit(c) ==
 
 \* A compromised aggregator q invents a lock by child x for sibling y. One
 \* adversary controls every compromised chain, so the invented lock appears
-\* in the aggregate of each of them.
+\* in the aggregate of each of them. Invented burns are not modelled: under
+\* backbone validation they add one more way to damage a sibling (already
+\* violated by invented locks), and under the resolution the same
+\* confirmation by an honest shared parent refuses them.
 ForgeAgg(q) ==
     /\ forged < MaxForge
     /\ \E x, y \in Kids(q) :
@@ -316,7 +342,11 @@ Next ==
     \/ \E u \in Unit : SendHop(u) \/ Credit(u) \/ Reject(u)
     \/ \E c \in comp : ForgeUnit(c) \/ ForgeAgg(c) \/ PovTheft(c)
 
-Fairness == \A u \in Real : WF_vars(SendHop(u)) /\ WF_vars(Credit(u) \/ Reject(u))
+\* Weak fairness on honest chains only: a compromised chain need not forward,
+\* credit or refuse anything.
+Fairness == \A u \in Real :
+    /\ WF_vars(SendHop(u) /\ Cur(u) \notin comp)
+    /\ WF_vars((Credit(u) \/ Reject(u)) /\ out[u] \notin comp)
 
 Spec == Init /\ [][Next]_vars /\ Fairness
 
@@ -344,8 +374,10 @@ Backed == comp = {} => \A f \in Fake : path[f] = <<>>
 \* A transfer ends exactly at its origin or its requested target.
 SettlesSafe == \A u \in Real : endAt[u] # 0 => endAt[u] \in {start[u], req[u]}
 
-\* Every transfer ends (honest rows, under Fairness).
-Terminates == \A u \in Real : (target[u] # 0) ~> (target[u] = 0)
+\* Every transfer ends, unless a compromised chain holds the unit or is the
+\* chain asked to credit it: such a chain may keep what it is sent.
+Terminates == \A u \in Real :
+    (target[u] # 0) ~> (target[u] = 0 \/ Cur(u) \in comp \/ out[u] \in comp)
 
 \* Honest chains holding a unit with nothing behind it whose provenance
 \* avoids every compromised chain.
@@ -365,9 +397,9 @@ GroupContained ==
     /\ c0 # 0 => comp \subseteq Gov(c0)
     /\ {origin[f] : f \in Fake} \ {0} \subseteq Blast
 
-\* Characterisation, not claimed: unbacked units also stay inside while they
-\* circulate. Their provenance names the chains on their path, not the
-\* validator that failed, so honest chains pass them on.
+\* BR = 3 read as extent of damage ([DAG] Sect. 3.1): unbacked units also stay
+\* inside while they circulate. Their provenance names the chains on their
+\* path, not the validator that failed, so honest chains pass them on.
 CirculationContained == Damaged \subseteq Blast
 
 (***************************************************************************)
@@ -380,4 +412,10 @@ NoDualValid == ~\E u \in Real : /\ endAt[u] # 0 /\ endAt[u] = req[u]
                                 /\ Cardinality(AllParents(req[u])) >= 2
 NoRefund    == ~\E u \in Real : endAt[u] # 0 /\ endAt[u] = start[u] /\ req[u] # start[u]
 NoGuSpread  == c0 # 0 => ~(GU \subseteq comp)
+RECURSIVE RootC(_)
+RootC(v) == IF Parent[v] = 0 THEN v ELSE RootC(Parent[v])
+NoSiblingDone == ~\E u \in Real : /\ endAt[u] # 0 /\ endAt[u] = req[u]
+                                  /\ HopKind(start[u], req[u]) = "sibling"
+NoCrossTree   == ~\E u \in Real : /\ endAt[u] # 0 /\ endAt[u] = req[u]
+                                  /\ RootC(start[u]) # RootC(req[u])
 =============================================================================

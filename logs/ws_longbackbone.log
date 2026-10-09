@@ -1,5 +1,6 @@
+inputs: ad420fe7a25f993f5c614b5af5f4760d2017e259ca812e093658c640787543dd c6fac6ff8703644df3044ee860eba7245a6487873660870385ce6030e72f2104 936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88
 TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
-Running breadth-first search Model-Checking with fp 112 and seed -7985687766058118204 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 60845] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 28 and seed -8760926068651657561 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 89613] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/DagStructure.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/ws_longbackbone.tmp/Integers.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/ws_longbackbone.tmp/FiniteSets.tla
@@ -12,10 +13,10 @@ Semantic processing of module Sequences
 Semantic processing of module FiniteSets
 Semantic processing of module TLC
 Semantic processing of module DagStructure
-Starting... (2026-10-09 15:22:40)
+Starting... (2026-10-09 16:19:32)
 Computing initial states...
 <<"ws_longbackbone", "violations", 11334>>
 Error: Invariant NoViolation is violated by the initial state:
 ce = [n |-> 3, par |-> <<0, 0, 1>>, ex |-> {<<1, 2>>, <<2, 3>>}, lev |-> <<>>]
 
-Finished in 11s at (2026-10-09 15:22:51)
+Finished in 11s at (2026-10-09 16:19:43)

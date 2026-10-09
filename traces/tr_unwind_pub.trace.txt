@@ -18,7 +18,7 @@ State 1: <Initial predicate>
 /\ forgedAgg = <<{}, {}, {}, {}>>
 /\ commits = <<{}, {}, {}, {}>>
 
-State 2: <Start line 184, col 5 to line 193, col 81 of module DagTransfer>
+State 2: <Start line 204, col 5 to line 213, col 81 of module DagTransfer>
 /\ origin = <<0, 0>>
 /\ txs = 1
 /\ endAt = <<0, 0>>
@@ -36,7 +36,7 @@ State 2: <Start line 184, col 5 to line 193, col 81 of module DagTransfer>
 /\ forgedAgg = <<{}, {}, {}, {}>>
 /\ commits = <<{}, {}, {}, {}>>
 
-State 3: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
+State 3: <SendHop line 216, col 5 to line 222, col 32 of module DagTransfer>
 /\ origin = <<0, 0>>
 /\ txs = 1
 /\ endAt = <<0, 0>>
@@ -52,9 +52,9 @@ State 3: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
 /\ fic = <<0, 0>>
 /\ path = <<<<3>>, <<>>>>
 /\ forgedAgg = <<{}, {}, {}, {}>>
-/\ commits = <<{}, {}, {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]}, {}>>
+/\ commits = <<{}, {}, {[f |-> 3, t |-> 2, u |-> 1, len |-> 1]}, {}>>
 
-State 4: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
+State 4: <Credit line 243, col 5 to line 257, col 83 of module DagTransfer>
 /\ origin = <<0, 0>>
 /\ txs = 1
 /\ endAt = <<0, 0>>
@@ -70,9 +70,9 @@ State 4: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
 /\ fic = <<0, 0>>
 /\ path = <<<<3, 2>>, <<>>>>
 /\ forgedAgg = <<{}, {}, {}, {}>>
-/\ commits = <<{}, {}, {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]}, {}>>
+/\ commits = <<{}, {}, {[f |-> 3, t |-> 2, u |-> 1, len |-> 1]}, {}>>
 
-State 5: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
+State 5: <SendHop line 216, col 5 to line 222, col 32 of module DagTransfer>
 /\ origin = <<0, 0>>
 /\ txs = 1
 /\ endAt = <<0, 0>>
@@ -89,11 +89,11 @@ State 5: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
 /\ path = <<<<3, 2>>, <<>>>>
 /\ forgedAgg = <<{}, {}, {}, {}>>
 /\ commits = << {},
-   {[u |-> 1, f |-> 2, t |-> 1, len |-> 2]},
-   {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]},
+   {[f |-> 2, t |-> 1, u |-> 1, len |-> 2]},
+   {[f |-> 3, t |-> 2, u |-> 1, len |-> 1]},
    {} >>
 
-State 6: <Reject line 241, col 5 to line 260, col 87 of module DagTransfer>
+State 6: <Reject line 263, col 5 to line 283, col 87 of module DagTransfer>
 /\ origin = <<0, 0>>
 /\ txs = 1
 /\ endAt = <<2, 0>>
@@ -110,6 +110,6 @@ State 6: <Reject line 241, col 5 to line 260, col 87 of module DagTransfer>
 /\ path = <<<<3, 2>>, <<>>>>
 /\ forgedAgg = <<{}, {}, {}, {}>>
 /\ commits = << {},
-   {[u |-> 1, f |-> 2, t |-> 1, len |-> 2]},
-   {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]},
+   {[f |-> 2, t |-> 1, u |-> 1, len |-> 2]},
+   {[f |-> 3, t |-> 2, u |-> 1, len |-> 1]},
    {} >>

@@ -12,7 +12,7 @@ ws_crossskip	DagStructure	violated:NoViolation
 ws_longbackbone	DagStructure	violated:NoViolation
 tr_full_tree3	DagTransfer	holds
 tr_full_dag5	DagTransfer	holds
-tr_up_pov	DagTransfer	violated:GroupContained
+tr_up_pov	DagTransfer	violated:ProvenanceContained
 tr_up_lock	DagTransfer	holds
 tr_obs_off	DagTransfer	violated:GroupContained
 tr_obs_on	DagTransfer	holds
@@ -23,7 +23,11 @@ tr_valid_all	DagTransfer	holds
 tr_unwind_pub	DagTransfer	violated:SettlesSafe
 tr_unwind_amd	DagTransfer	holds
 tr_amended	DagTransfer	holds
+tr_amended_tree	DagTransfer	holds
+tr_amended_gu	DagTransfer	holds
 tr_amended_path	DagTransfer	holds
+tr_amended_big	DagTransfer	holds
+tr_amended_path_big	DagTransfer	holds
 tr_multi_all	DagTransfer	violated:ProvenanceContained
 tr_multi_gu	DagTransfer	violated:ProvenanceContained
 tr_gu_spread	DagTransfer	holds
@@ -32,3 +36,10 @@ wt_multihop	DagTransfer	violated:NoMultiHop
 wt_dualvalid	DagTransfer	violated:NoDualValid
 wt_refund	DagTransfer	violated:NoRefund
 wt_gu_member	DagTransfer	violated:NoGuSpread
+wt_tree3	DagTransfer	violated:NoSiblingDone
+wt_dag5	DagTransfer	violated:NoCrossTree
+wt_obs	DagTransfer	violated:NoForgedOnHonest
+wt_amended	DagTransfer	violated:NoRefund
+wt_detour	DagTransfer	violated:NoSiblingDone
+wt_amended_gu	DagTransfer	violated:NoSiblingDone
+wt_amended_path	DagTransfer	violated:NoRefund
