@@ -1,0 +1,137 @@
+TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
+Running breadth-first search Model-Checking with fp 100 and seed -7841204045834402823 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 59011] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/DagTransfer.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_unwind_pub.tmp/Integers.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_unwind_pub.tmp/FiniteSets.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_unwind_pub.tmp/Sequences.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_unwind_pub.tmp/TLC.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_unwind_pub.tmp/Naturals.tla
+Semantic processing of module Naturals
+Semantic processing of module Integers
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module TLC
+Semantic processing of module DagTransfer
+Starting... (2026-10-09 15:19:02)
+Computing initial states...
+Finished computing initial states: 1 distinct state generated at 2026-10-09 15:19:02.
+Error: Invariant SettlesSafe is violated.
+Error: The behavior up to this point is:
+State 1: <Initial predicate>
+/\ origin = <<0, 0>>
+/\ txs = 0
+/\ endAt = <<0, 0>>
+/\ c0 = 0
+/\ comp = {}
+/\ forged = 0
+/\ start = <<0, 0>>
+/\ out = <<0, 0>>
+/\ pos = <<0, 0>>
+/\ req = <<0, 0>>
+/\ rt = <<<<>>, <<>>>>
+/\ target = <<0, 0>>
+/\ fic = <<0, 0>>
+/\ path = <<<<3>>, <<>>>>
+/\ forgedAgg = <<{}, {}, {}, {}>>
+/\ commits = <<{}, {}, {}, {}>>
+
+State 2: <Start line 184, col 5 to line 193, col 81 of module DagTransfer>
+/\ origin = <<0, 0>>
+/\ txs = 1
+/\ endAt = <<0, 0>>
+/\ c0 = 0
+/\ comp = {}
+/\ forged = 0
+/\ start = <<3, 0>>
+/\ out = <<0, 0>>
+/\ pos = <<1, 0>>
+/\ req = <<4, 0>>
+/\ rt = <<<<3, 2, 1, 4>>, <<>>>>
+/\ target = <<4, 0>>
+/\ fic = <<0, 0>>
+/\ path = <<<<3>>, <<>>>>
+/\ forgedAgg = <<{}, {}, {}, {}>>
+/\ commits = <<{}, {}, {}, {}>>
+
+State 3: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
+/\ origin = <<0, 0>>
+/\ txs = 1
+/\ endAt = <<0, 0>>
+/\ c0 = 0
+/\ comp = {}
+/\ forged = 0
+/\ start = <<3, 0>>
+/\ out = <<2, 0>>
+/\ pos = <<1, 0>>
+/\ req = <<4, 0>>
+/\ rt = <<<<3, 2, 1, 4>>, <<>>>>
+/\ target = <<4, 0>>
+/\ fic = <<0, 0>>
+/\ path = <<<<3>>, <<>>>>
+/\ forgedAgg = <<{}, {}, {}, {}>>
+/\ commits = <<{}, {}, {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]}, {}>>
+
+State 4: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
+/\ origin = <<0, 0>>
+/\ txs = 1
+/\ endAt = <<0, 0>>
+/\ c0 = 0
+/\ comp = {}
+/\ forged = 0
+/\ start = <<3, 0>>
+/\ out = <<0, 0>>
+/\ pos = <<2, 0>>
+/\ req = <<4, 0>>
+/\ rt = <<<<3, 2, 1, 4>>, <<>>>>
+/\ target = <<4, 0>>
+/\ fic = <<0, 0>>
+/\ path = <<<<3, 2>>, <<>>>>
+/\ forgedAgg = <<{}, {}, {}, {}>>
+/\ commits = <<{}, {}, {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]}, {}>>
+
+State 5: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
+/\ origin = <<0, 0>>
+/\ txs = 1
+/\ endAt = <<0, 0>>
+/\ c0 = 0
+/\ comp = {}
+/\ forged = 0
+/\ start = <<3, 0>>
+/\ out = <<1, 0>>
+/\ pos = <<2, 0>>
+/\ req = <<4, 0>>
+/\ rt = <<<<3, 2, 1, 4>>, <<>>>>
+/\ target = <<4, 0>>
+/\ fic = <<0, 0>>
+/\ path = <<<<3, 2>>, <<>>>>
+/\ forgedAgg = <<{}, {}, {}, {}>>
+/\ commits = << {},
+   {[u |-> 1, f |-> 2, t |-> 1, len |-> 2]},
+   {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]},
+   {} >>
+
+State 6: <Reject line 241, col 5 to line 260, col 87 of module DagTransfer>
+/\ origin = <<0, 0>>
+/\ txs = 1
+/\ endAt = <<2, 0>>
+/\ c0 = 0
+/\ comp = {}
+/\ forged = 0
+/\ start = <<3, 0>>
+/\ out = <<0, 0>>
+/\ pos = <<2, 0>>
+/\ req = <<4, 0>>
+/\ rt = <<<<3, 2, 1, 4>>, <<>>>>
+/\ target = <<0, 0>>
+/\ fic = <<0, 0>>
+/\ path = <<<<3, 2>>, <<>>>>
+/\ forgedAgg = <<{}, {}, {}, {}>>
+/\ commits = << {},
+   {[u |-> 1, f |-> 2, t |-> 1, len |-> 2]},
+   {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]},
+   {} >>
+
+9 states generated, 9 distinct states found, 2 states left on queue.
+The depth of the complete state graph search is 6.
+The average outdegree of the complete state graph is 1 (minimum is 1, the maximum 2 and the 95th percentile is 2).
+Finished in 00s at (2026-10-09 15:19:02)

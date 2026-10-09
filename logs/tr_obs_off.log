@@ -1,0 +1,35 @@
+TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
+Running breadth-first search Model-Checking with fp 122 and seed -2740955503638364527 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 58761] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/DagTransfer.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_obs_off.tmp/Integers.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_obs_off.tmp/FiniteSets.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_obs_off.tmp/Sequences.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_obs_off.tmp/TLC.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_obs_off.tmp/Naturals.tla
+Semantic processing of module Naturals
+Semantic processing of module Integers
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module TLC
+Semantic processing of module DagTransfer
+Starting... (2026-10-09 15:18:57)
+Computing initial states...
+Error: Invariant GroupContained is violated by the initial state:
+/\ origin = <<0, 0>>
+/\ txs = 0
+/\ endAt = <<0, 0>>
+/\ c0 = 3
+/\ comp = {1, 2, 3}
+/\ forged = 0
+/\ start = <<0, 0>>
+/\ out = <<0, 0>>
+/\ pos = <<0, 0>>
+/\ req = <<0, 0>>
+/\ rt = <<<<>>, <<>>>>
+/\ target = <<0, 0>>
+/\ fic = <<0, 0>>
+/\ path = <<<<3>>, <<>>>>
+/\ forgedAgg = <<{}, {}, {}, {}>>
+/\ commits = <<{}, {}, {}, {}>>
+
+Finished in 00s at (2026-10-09 15:18:57)
