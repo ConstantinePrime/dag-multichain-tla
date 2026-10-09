@@ -1,0 +1,4 @@
+Error: Invariant NoViolation is violated by the initial state:
+ce = [n |-> 2, par |-> <<0, 0>>, ex |-> {}, lev |-> <<>>]
+
+Finished in 11s at (2026-10-09 15:16:55)

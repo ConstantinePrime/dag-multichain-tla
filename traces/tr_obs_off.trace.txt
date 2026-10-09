@@ -1,0 +1,19 @@
+Error: Invariant GroupContained is violated by the initial state:
+/\ origin = <<0, 0>>
+/\ txs = 0
+/\ endAt = <<0, 0>>
+/\ c0 = 3
+/\ comp = {1, 2, 3}
+/\ forged = 0
+/\ start = <<0, 0>>
+/\ out = <<0, 0>>
+/\ pos = <<0, 0>>
+/\ req = <<0, 0>>
+/\ rt = <<<<>>, <<>>>>
+/\ target = <<0, 0>>
+/\ fic = <<0, 0>>
+/\ path = <<<<3>>, <<>>>>
+/\ forgedAgg = <<{}, {}, {}, {}>>
+/\ commits = <<{}, {}, {}, {}>>
+
+Finished in 00s at (2026-10-09 15:18:57)

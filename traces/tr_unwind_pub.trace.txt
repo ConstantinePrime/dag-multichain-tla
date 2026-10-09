@@ -1,0 +1,115 @@
+Error: Invariant SettlesSafe is violated.
+Error: The behavior up to this point is:
+State 1: <Initial predicate>
+/\ origin = <<0, 0>>
+/\ txs = 0
+/\ endAt = <<0, 0>>
+/\ c0 = 0
+/\ comp = {}
+/\ forged = 0
+/\ start = <<0, 0>>
+/\ out = <<0, 0>>
+/\ pos = <<0, 0>>
+/\ req = <<0, 0>>
+/\ rt = <<<<>>, <<>>>>
+/\ target = <<0, 0>>
+/\ fic = <<0, 0>>
+/\ path = <<<<3>>, <<>>>>
+/\ forgedAgg = <<{}, {}, {}, {}>>
+/\ commits = <<{}, {}, {}, {}>>
+
+State 2: <Start line 184, col 5 to line 193, col 81 of module DagTransfer>
+/\ origin = <<0, 0>>
+/\ txs = 1
+/\ endAt = <<0, 0>>
+/\ c0 = 0
+/\ comp = {}
+/\ forged = 0
+/\ start = <<3, 0>>
+/\ out = <<0, 0>>
+/\ pos = <<1, 0>>
+/\ req = <<4, 0>>
+/\ rt = <<<<3, 2, 1, 4>>, <<>>>>
+/\ target = <<4, 0>>
+/\ fic = <<0, 0>>
+/\ path = <<<<3>>, <<>>>>
+/\ forgedAgg = <<{}, {}, {}, {}>>
+/\ commits = <<{}, {}, {}, {}>>
+
+State 3: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
+/\ origin = <<0, 0>>
+/\ txs = 1
+/\ endAt = <<0, 0>>
+/\ c0 = 0
+/\ comp = {}
+/\ forged = 0
+/\ start = <<3, 0>>
+/\ out = <<2, 0>>
+/\ pos = <<1, 0>>
+/\ req = <<4, 0>>
+/\ rt = <<<<3, 2, 1, 4>>, <<>>>>
+/\ target = <<4, 0>>
+/\ fic = <<0, 0>>
+/\ path = <<<<3>>, <<>>>>
+/\ forgedAgg = <<{}, {}, {}, {}>>
+/\ commits = <<{}, {}, {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]}, {}>>
+
+State 4: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
+/\ origin = <<0, 0>>
+/\ txs = 1
+/\ endAt = <<0, 0>>
+/\ c0 = 0
+/\ comp = {}
+/\ forged = 0
+/\ start = <<3, 0>>
+/\ out = <<0, 0>>
+/\ pos = <<2, 0>>
+/\ req = <<4, 0>>
+/\ rt = <<<<3, 2, 1, 4>>, <<>>>>
+/\ target = <<4, 0>>
+/\ fic = <<0, 0>>
+/\ path = <<<<3, 2>>, <<>>>>
+/\ forgedAgg = <<{}, {}, {}, {}>>
+/\ commits = <<{}, {}, {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]}, {}>>
+
+State 5: <SendHop line 196, col 5 to line 202, col 32 of module DagTransfer>
+/\ origin = <<0, 0>>
+/\ txs = 1
+/\ endAt = <<0, 0>>
+/\ c0 = 0
+/\ comp = {}
+/\ forged = 0
+/\ start = <<3, 0>>
+/\ out = <<1, 0>>
+/\ pos = <<2, 0>>
+/\ req = <<4, 0>>
+/\ rt = <<<<3, 2, 1, 4>>, <<>>>>
+/\ target = <<4, 0>>
+/\ fic = <<0, 0>>
+/\ path = <<<<3, 2>>, <<>>>>
+/\ forgedAgg = <<{}, {}, {}, {}>>
+/\ commits = << {},
+   {[u |-> 1, f |-> 2, t |-> 1, len |-> 2]},
+   {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]},
+   {} >>
+
+State 6: <Reject line 241, col 5 to line 260, col 87 of module DagTransfer>
+/\ origin = <<0, 0>>
+/\ txs = 1
+/\ endAt = <<2, 0>>
+/\ c0 = 0
+/\ comp = {}
+/\ forged = 0
+/\ start = <<3, 0>>
+/\ out = <<0, 0>>
+/\ pos = <<2, 0>>
+/\ req = <<4, 0>>
+/\ rt = <<<<3, 2, 1, 4>>, <<>>>>
+/\ target = <<0, 0>>
+/\ fic = <<0, 0>>
+/\ path = <<<<3, 2>>, <<>>>>
+/\ forgedAgg = <<{}, {}, {}, {}>>
+/\ commits = << {},
+   {[u |-> 1, f |-> 2, t |-> 1, len |-> 2]},
+   {[u |-> 1, f |-> 3, t |-> 2, len |-> 1]},
+   {} >>

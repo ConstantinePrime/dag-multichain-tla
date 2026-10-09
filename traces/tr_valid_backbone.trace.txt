@@ -1,0 +1,55 @@
+Error: Invariant ProvenanceContained is violated.
+Error: The behavior up to this point is:
+State 1: <Initial predicate>
+/\ origin = <<0, 0, 0>>
+/\ txs = 0
+/\ endAt = <<0, 0, 0>>
+/\ c0 = 1
+/\ comp = {1}
+/\ forged = 0
+/\ start = <<0, 0, 0>>
+/\ out = <<0, 0, 0>>
+/\ pos = <<0, 0, 0>>
+/\ req = <<0, 0, 0>>
+/\ rt = <<<<>>, <<>>, <<>>>>
+/\ target = <<0, 0, 0>>
+/\ fic = <<0, 0, 0>>
+/\ path = <<<<3>>, <<5>>, <<>>>>
+/\ forgedAgg = <<{}, {}, {}, {}, {}>>
+/\ commits = <<{}, {}, {}, {}, {}>>
+
+State 2: <Next line 317, col 8 to line 317, col 65 of module DagTransfer>
+/\ origin = <<0, 0, 0>>
+/\ txs = 0
+/\ endAt = <<0, 0, 0>>
+/\ c0 = 1
+/\ comp = {1}
+/\ forged = 1
+/\ start = <<0, 0, 4>>
+/\ out = <<0, 0, 3>>
+/\ pos = <<0, 0, 1>>
+/\ req = <<0, 0, 3>>
+/\ rt = <<<<>>, <<>>, <<4, 3>>>>
+/\ target = <<0, 0, 3>>
+/\ fic = <<0, 0, 1>>
+/\ path = <<<<3>>, <<5>>, <<4>>>>
+/\ forgedAgg = <<{[u |-> 3, f |-> 4, t |-> 3, len |-> 1]}, {}, {}, {}, {}>>
+/\ commits = <<{}, {}, {}, {}, {}>>
+
+State 3: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
+/\ origin = <<0, 0, 3>>
+/\ txs = 0
+/\ endAt = <<0, 0, 3>>
+/\ c0 = 1
+/\ comp = {1}
+/\ forged = 1
+/\ start = <<0, 0, 4>>
+/\ out = <<0, 0, 0>>
+/\ pos = <<0, 0, 2>>
+/\ req = <<0, 0, 3>>
+/\ rt = <<<<>>, <<>>, <<4, 3>>>>
+/\ target = <<0, 0, 0>>
+/\ fic = <<0, 0, 1>>
+/\ path = <<<<3>>, <<5>>, <<4, 3>>>>
+/\ forgedAgg = <<{[u |-> 3, f |-> 4, t |-> 3, len |-> 1]}, {}, {}, {}, {}>>
+/\ commits = <<{}, {}, {}, {}, {}>>
