@@ -1,0 +1,24 @@
+TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
+Running breadth-first search Model-Checking with fp 73 and seed 6633493134075575308 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 58167] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/DagStructure.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/ws_crossskip.tmp/Integers.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/ws_crossskip.tmp/FiniteSets.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/ws_crossskip.tmp/Sequences.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/ws_crossskip.tmp/TLC.tla
+Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/ws_crossskip.tmp/Naturals.tla
+Semantic processing of module Naturals
+Semantic processing of module Integers
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module TLC
+Semantic processing of module DagStructure
+Starting... (2026-10-09 15:17:35)
+Computing initial states...
+<<"ws_crossskip", "violations", 10147>>
+Error: Invariant NoViolation is violated by the initial state:
+ce = [ n |-> 3,
+  par |-> <<0, 0, 0>>,
+  ex |-> {<<1, 2>>, <<1, 3>>, <<2, 3>>},
+  lev |-> <<>> ]
+
+Finished in 35s at (2026-10-09 15:18:11)
