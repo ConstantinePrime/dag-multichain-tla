@@ -1,5 +1,5 @@
 TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
-Running breadth-first search Model-Checking with fp 28 and seed 4356847930495267257 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 58841] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 109 and seed 3268626260480355401 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 61185] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/DagTransfer.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_valid_backbone.tmp/Integers.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/tr_valid_backbone.tmp/FiniteSets.tla
@@ -12,9 +12,9 @@ Semantic processing of module Sequences
 Semantic processing of module FiniteSets
 Semantic processing of module TLC
 Semantic processing of module DagTransfer
-Starting... (2026-10-09 15:18:59)
+Starting... (2026-10-09 15:22:57)
 Computing initial states...
-Finished computing initial states: 1 distinct state generated at 2026-10-09 15:18:59.
+Finished computing initial states: 1 distinct state generated at 2026-10-09 15:22:57.
 Error: Invariant ProvenanceContained is violated.
 Error: The behavior up to this point is:
 State 1: <Initial predicate>
@@ -74,4 +74,4 @@ State 3: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
 44 states generated, 30 distinct states found, 21 states left on queue.
 The depth of the complete state graph search is 3.
 The average outdegree of the complete state graph is 4 (minimum is 0, the maximum 8 and the 95th percentile is 8).
-Finished in 00s at (2026-10-09 15:18:59)
+Finished in 00s at (2026-10-09 15:22:57)

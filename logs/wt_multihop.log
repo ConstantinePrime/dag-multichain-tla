@@ -1,5 +1,5 @@
 TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
-Running breadth-first search Model-Checking with fp 108 and seed -3268978157849674245 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 59386] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 5 and seed 9074076106434266601 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 61727] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/DagTransfer.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/wt_multihop.tmp/Integers.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/wt_multihop.tmp/FiniteSets.tla
@@ -12,9 +12,9 @@ Semantic processing of module Sequences
 Semantic processing of module FiniteSets
 Semantic processing of module TLC
 Semantic processing of module DagTransfer
-Starting... (2026-10-09 15:19:10)
+Starting... (2026-10-09 15:23:07)
 Computing initial states...
-Finished computing initial states: 1 distinct state generated at 2026-10-09 15:19:10.
+Finished computing initial states: 1 distinct state generated at 2026-10-09 15:23:08.
 Error: Invariant NoMultiHop is violated.
 Error: The behavior up to this point is:
 State 1: <Initial predicate>
@@ -176,4 +176,4 @@ State 8: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
 8 states generated, 8 distinct states found, 0 states left on queue.
 The depth of the complete state graph search is 8.
 The average outdegree of the complete state graph is 1 (minimum is 1, the maximum 1 and the 95th percentile is 1).
-Finished in 00s at (2026-10-09 15:19:10)
+Finished in 00s at (2026-10-09 15:23:08)

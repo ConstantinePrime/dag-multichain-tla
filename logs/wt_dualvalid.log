@@ -1,5 +1,5 @@
 TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
-Running breadth-first search Model-Checking with fp 23 and seed 1614361199583119649 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 59427] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 102 and seed 6095441406985478094 with 1 worker on 16 cores with 7282MB heap and 64MB offheap memory [pid: 61767] (Linux 7.0.0-34-generic amd64, Ubuntu 21.0.12.1 x86_64, MSBDiskFPSet, DiskStateQueue).
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/DagTransfer.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/wt_dualvalid.tmp/Integers.tla
 Parsing file /home/constantine/Programming/Constantine/Projects/PhD_verification/dag-multichain-tla/spec/states/wt_dualvalid.tmp/FiniteSets.tla
@@ -12,9 +12,9 @@ Semantic processing of module Sequences
 Semantic processing of module FiniteSets
 Semantic processing of module TLC
 Semantic processing of module DagTransfer
-Starting... (2026-10-09 15:19:10)
+Starting... (2026-10-09 15:23:08)
 Computing initial states...
-Finished computing initial states: 1 distinct state generated at 2026-10-09 15:19:11.
+Finished computing initial states: 1 distinct state generated at 2026-10-09 15:23:08.
 Error: Invariant NoDualValid is violated.
 Error: The behavior up to this point is:
 State 1: <Initial predicate>
@@ -92,4 +92,4 @@ State 4: <Credit line 221, col 5 to line 235, col 83 of module DagTransfer>
 20 states generated, 15 distinct states found, 6 states left on queue.
 The depth of the complete state graph search is 4.
 The average outdegree of the complete state graph is 2 (minimum is 1, the maximum 3 and the 95th percentile is 3).
-Finished in 00s at (2026-10-09 15:19:11)
+Finished in 00s at (2026-10-09 15:23:08)
